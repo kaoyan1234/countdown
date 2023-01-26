@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hans">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>2024 考研倒计时</title>
     <link rel="stylesheet" href="./flip/flip.min.css" />
   </head>
   <body>
     <style>
-      body {
-        margin-top: 30vh;
+      * {
+        overflow: hidden;
+      }
+      .main {
+        padding: 0;
+        margin: 25vh 0 0 0;
       }
 
       .tick {
@@ -29,33 +34,43 @@
         text-align: center;
       }
 
-      @media all and (orientation: portrait) {
-        body {
+      .tick-credits {
+        display: none;
+      }
+
+      @media all and (orientation: portrait) and (max-width: 480px) {
+        .main {
+          margin: 0 0 0 -25vw;
           transform: rotate(90deg);
+          transform-origin: bottom left;
+          top: -100vw;
+          height: 100vw;
+          width: 100vh;
+          position: absolute;
         }
       }
     </style>
+    <div class="main">
+      <div class="tick" data-did-init="handleTickInit">
+        <div
+          data-repeat="true"
+          data-layout="horizontal center fit"
+          data-transform="preset(d, h, m, s) -> delay"
+        >
+          <div class="tick-group">
+            <div
+              data-key="value"
+              data-repeat="true"
+              data-transform="pad(00) -> split -> delay"
+            >
+              <span data-view="flip"></span>
+            </div>
 
-    <div class="tick" data-did-init="handleTickInit">
-      <div
-        data-repeat="true"
-        data-layout="horizontal center fit"
-        data-transform="preset(d, h, m, s) -> delay"
-      >
-        <div class="tick-group">
-          <div
-            data-key="value"
-            data-repeat="true"
-            data-transform="pad(00) -> split -> delay"
-          >
-            <span data-view="flip"></span>
+            <span data-key="label" data-view="text" class="tick-label"></span>
           </div>
-
-          <span data-key="label" data-view="text" class="tick-label"></span>
         </div>
       </div>
     </div>
-
     <script>
       function handleTickInit(tick) {
         // https://github.com/pqina/flip
